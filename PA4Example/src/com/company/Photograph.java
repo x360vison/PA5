@@ -18,6 +18,8 @@
 
 package com.company;
 
+import java.util.List;
+
 public class Photograph {
 
     private int[] pixelArray;
@@ -27,9 +29,9 @@ public class Photograph {
         pixelArray = new int[100];
     }
 
-    public Photograph(int size, String date) {
-        if(size >= 4)
-            pixelArray = new int[size];
+    public Photograph(List<Photograph> memory, String date) {
+        if(memory.size() >= 4)
+            pixelArray = new int[memory.size()];
         else 
             pixelArray = new int[4];
 

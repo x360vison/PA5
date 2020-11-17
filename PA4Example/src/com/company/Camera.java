@@ -1,8 +1,10 @@
 package com.company;
 import java.util.ArrayList;
+import java.util.List;
+
 public class Camera {
 
-    private ArrayList<Photograph> memory = new ArrayList<Photograph>();
+    private final List<Photograph> memoryCard = new ArrayList<>();
     private double zoom;
     private String date;
 
@@ -11,12 +13,9 @@ public class Camera {
         date = "19000101";
     }
 
-    public Camera(int num, String date) {
-        if(num < 16)
-            num = 16;
-
-        memory = new  ArrayList<Photograph>();
-        int memorySize = memory.size();
+    public Camera(List<Photograph> memory, String date) {
+        memoryCard.add(new Photograph(memory, date));
+        int memorySize = memoryCard.size();
 
         zoom = 1.0;
 
@@ -43,8 +42,8 @@ public class Camera {
     }
 
     public boolean takePhoto(Photograph p) {
-        if(numPhotographs < memory.size()) {
-            memory.get(numPhotographs) = p;
+        if(numPhotographs < memoryCard.size()) {
+            memoryCard.get(numPhotographs) = p;
             numPhotographs++;
 
             return true;
@@ -64,22 +63,18 @@ public class Camera {
     }
 
     public int getPhotoSize(int idx) {
-        if(idx >= 0 && idx < memory.length && memory[idx] != null)
-            return memory[idx].getSize();
+        if(idx >= 0 && idx < memoryCard.size() && memoryCard.get(idx) != null)
+            return memoryCard.get(idx).getSize();
         else
             return -1;
     }
 
 
     public String getPhotoDate(int idx) {
-        if(idx >= 0 && idx < memory.length && memory[idx] != null)
-            return memory[idx].getDate();
+        if(idx >= 0 && idx < memoryCard.size() && memoryCard.get(idx) != null)
+            return memoryCard.get(idx).getDate();
         else
             return "00000000";
     }
 
-    private class ArrayList<T> {
-        public int memorySize() {
-        }
-    }
 }
