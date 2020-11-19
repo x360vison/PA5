@@ -1,12 +1,14 @@
 package com.company;
 import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.List;
 
 public class Camera {
 
-    private final List<Photograph> memoryCard = new ArrayList<>();
+    private final List<Photograph> memoryCard = new ArrayList<>(16);
     private double zoom;
     private String date;
+    private int memorySize;
 
     public Camera() {
         zoom = 1.0;
@@ -15,7 +17,7 @@ public class Camera {
 
     public Camera(List<Photograph> memory, String date) {
         memoryCard.add(new Photograph(memory, date));
-        int memorySize = memoryCard.size();
+        memorySize = memoryCard.size();
 
         zoom = 1.0;
 
@@ -42,9 +44,9 @@ public class Camera {
     }
 
     public boolean takePhoto(Photograph p) {
-        if(numPhotographs < memoryCard.size()) {
-            memoryCard.get(numPhotographs) = p;
-            numPhotographs++;
+        if(memorySize < memoryCard.size()) {
+            memoryCard.add(p);
+            memorySize++;
 
             return true;
         }

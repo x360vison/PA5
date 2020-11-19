@@ -41,6 +41,10 @@ public class Photograph {
             this.date = "01011900";
     }
 
+    public Photograph(int num, String date) {
+
+    }
+
     public void setPixel(int location, int value) {
         if(location >= 0 && location <= pixelArray.length && value >= 0 && value <= 255)
             pixelArray[location] = value;

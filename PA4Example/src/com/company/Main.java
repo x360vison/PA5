@@ -1,6 +1,19 @@
+// Gary Price
+// C00278210
+// CMPS 260
+// Programming Assignment : 5
+// Due Date : 11/19/2020
+// Program Description: Updating PA 4
+// Certificate of Authenticity: 
+// I certify that the code in the Main, Photograph, and Camera classes
+// of this project is entirely my own work with the exception of the
+// example solution to Programming Assignment #4 provided by the
+// instructor.
+
 package com.company;
 
 import java.lang.invoke.StringConcatFactory;
+import java.util.Collections;
 import java.util.Scanner;
 
 public class Main {
@@ -20,12 +33,12 @@ public class Main {
 
 
         System.out.print("\nEnter the size of the memory card: ");
-        int memory = s.nextInt();
+        List<Photograph> memory = s.nextInt();
         s.nextLine();
         System.out.print("Enter the current date in the format YYYYMMDD: ");
         String date = s.nextLine();
 
-        Camera nikon = new Camera(memory, date);
+        Camera nikon = new Camera(Collections.singletonList(memory), date);
         String input = "";
 
         do {
