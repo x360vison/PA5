@@ -24,6 +24,8 @@ public class Photograph {
 
     private int[] pixelArray;
     private String date = "01011900";
+    private int holder;
+    private String dateHolder;
 
     public Photograph() {
         pixelArray = new int[100];
@@ -34,7 +36,6 @@ public class Photograph {
             pixelArray = new int[memory.size()];
         else 
             pixelArray = new int[4];
-
         if(date.length() == 8)
             this.date = date;
         else 
@@ -42,7 +43,8 @@ public class Photograph {
     }
 
     public Photograph(int num, String date) {
-
+        holder = num;
+        dateHolder = date;
     }
 
     public void setPixel(int location, int value) {
@@ -54,16 +56,16 @@ public class Photograph {
         return date;
     }
 
-    public int getSize() {
-        return pixelArray.length;
+    public int[] getSize() {
+        pixelArray = new int[holder];
+        return pixelArray;
     }
 
     public static Photograph createAll255sPhotograph() {
         Photograph p = new Photograph(100, "19000101");
-        for(int i=0; i < p.pixelArray.length; i++) {
-            p.pixelArray[i] = 255;
-        }
-
+//        for(int i=0; i < p.holder; i++) {
+//            p.pixelArray[i] = 255;
+//        }
         return p;
     }
 
@@ -73,12 +75,12 @@ public class Photograph {
 
     public static Photograph create7x7Checkerboard() {
         Photograph p = new Photograph(49, "19000103");
-        for(int i=0; i < p.pixelArray.length; i++) {
-            if(i%2 == 0)
-                p.pixelArray[i] = 255;
-            else
-                p.pixelArray[i] = 0;
-        }
+//        for(int i=0; i < p.pixelArray.length; i++) {
+//            if(i%2 == 0)
+//                p.pixelArray[i] = 255;
+//            else
+//                p.pixelArray[i] = 0;
+//        }
 
         return p;
     }

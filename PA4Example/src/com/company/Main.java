@@ -12,7 +12,7 @@
 
 package com.company;
 
-import java.lang.invoke.StringConcatFactory;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Scanner;
 
@@ -23,22 +23,29 @@ public class Main {
         Scanner s = new Scanner(System.in);
 
         Photograph p1 = Photograph.createAll255sPhotograph();
-        System.out.println("createAll255sPhotograph Factory: " + p1.getSize() + " " + p1.getDate());
+        System.out.println("createAll255sPhotograph Factory: " + p1.getSize().length + " " + p1.getDate());
 
         Photograph p2 = Photograph.createMinimumPhotograph();
-        System.out.println("createMinimumPhotograph Factory: " + p2.getSize() + " " + p2.getDate());
+        System.out.println("createMinimumPhotograph Factory: " + p2.getSize().length + " " + p2.getDate());
 
         Photograph p3 = Photograph.create7x7Checkerboard();
-        System.out.println("create7x7Checkerboard Factory: " + p3.getSize() + " " + p3.getDate());
+        System.out.println("create7x7Checkerboard Factory: " + p3.getSize().length + " " + p3.getDate());
 
 
         System.out.print("\nEnter the size of the memory card: ");
-        List<Photograph> memory = s.nextInt();
+
+        ArrayList<Photograph> memory = new ArrayList<>();
+
+        int photoMemory = s.nextInt();
+
         s.nextLine();
         System.out.print("Enter the current date in the format YYYYMMDD: ");
+
         String date = s.nextLine();
 
-        Camera nikon = new Camera(Collections.singletonList(memory), date);
+        memory.add(new Photograph(photoMemory, date));
+
+        Camera nikon = new Camera(memory, date);
         String input = "";
 
         do {
@@ -47,8 +54,8 @@ public class Main {
             input = s.nextLine();
             switch (input) {
                 case "1":
-                    System.out.println("There are " + nikon.getNumPhotographs() + " photograph" +
-                            (nikon.getNumPhotographs() != 1 ? "s " : " ") + "in the camera.");
+                    System.out.println("There are " + nikon.getMemory() + " photograph" +
+                            (nikon.getMemory() != 1 ? "s " : " ") + "in the camera.");
                     break;
 
                 case "2":
@@ -57,9 +64,9 @@ public class Main {
                     s.nextLine();
                     boolean b = nikon.takePhoto(size);
 
-
+                    System.out.println("BBBB2: " + b);
                     if(b)
-                        System.out.println(" (*) New photo added at position " + (nikon.getNumPhotographs()-1) +
+                        System.out.println(" (*) New photo added at position " + (nikon.getMemory()-1) +
                                 " with size " + size);
                     else
                         System.out.println(" (!) There was a problem adding the photo.");
@@ -89,10 +96,10 @@ public class Main {
                             b = nikon.takePhoto(Photograph.create7x7Checkerboard());
                             break;
                     }
-
+                    System.out.println("BBBB: " + b);
                     if(b)
-                        System.out.println(" (*) New photo added at position " + (nikon.getNumPhotographs()-1) +
-                                " with size " + nikon.getPhotoSize(nikon.getNumPhotographs()-1));
+                        System.out.println(" (*) New photo added at position " + (nikon.getMemory()-1) +
+                                " with size " + nikon.getPhotoSize(nikon.getMemory()-1));
                     else
                         System.out.println(" (!) There was a problem adding the photo.");
 
@@ -137,7 +144,7 @@ public class Main {
         int largest = c.getPhotoSize(0);
         int idx = 0;
 
-        for(int i=0; i<c.getNumPhotographs(); i++) {
+        for(int i=0; i<c.getMemory(); i++) {
             if(largest < c.getPhotoSize(i)){
                 largest = c.getPhotoSize(i);
                 idx = i;
@@ -154,7 +161,7 @@ public class Main {
         String oldest = c.getPhotoDate(0);
         int idx = 0;
 
-        for(int i=0; i<c.getNumPhotographs(); i++) {
+        for(int i=0; i<c.getMemory(); i++) {
             if(oldest.compareTo(c.getPhotoDate(i)) > 0){ //oldest appears after current, so no longer oldest
                 oldest = c.getPhotoDate(i);
                 idx = i;
@@ -168,7 +175,7 @@ public class Main {
     }
 
     public static void showAllPhotos(Camera c) {
-        for(int i=0; i<c.getNumPhotographs(); i++) {
+        for(int i=0; i<c.getMemory(); i++) {
             System.out.println(" [" + i + "] date: " + c.getPhotoDate(i) + " size: " + c.getPhotoSize(i));
         }
     }

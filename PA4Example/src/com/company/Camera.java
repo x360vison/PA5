@@ -38,6 +38,14 @@ public class Camera {
             this.date = date;
     }
 
+    public Integer getMemory(){
+        return memorySize;
+    }
+
+    public void setMemory(int memory){
+        this.memorySize = memory;
+    }
+
     public void setZoom(double zoom) {
         if(zoom >= 0 && zoom <= 1)
             this.zoom = zoom;
@@ -56,8 +64,7 @@ public class Camera {
 
     public boolean takePhoto(int num) {
         Photograph in_p = new Photograph(num, this.getDate());
-
-        for(int i=0; i < in_p.getSize(); i++) {
+        for(int i=0; i < in_p.getSize().length; i++) {
             in_p.setPixel(i, (int)(Math.random()*255) + 1); //(int) [0,1)*255 => (int) [0,255) => {0,1, ..., 254}
         }
 
@@ -66,7 +73,7 @@ public class Camera {
 
     public int getPhotoSize(int idx) {
         if(idx >= 0 && idx < memoryCard.size() && memoryCard.get(idx) != null)
-            return memoryCard.get(idx).getSize();
+            return memoryCard.get(idx).getSize().length;
         else
             return -1;
     }
